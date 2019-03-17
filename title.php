@@ -1,6 +1,5 @@
 <?php
 
-
 class Title{
     public $name;
 
@@ -9,7 +8,7 @@ class Title{
     }
 
     public function watched(){
-        echo $this->name .'は観ました！';
+        echo $this->name .'を観ました！';
     }
 }
 
