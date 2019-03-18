@@ -25,12 +25,6 @@ error_reporting(E_ALL);
         <h3 class="title-name"><?php echo $title->getName() ?></h3>
         <h4 class="enName"><?php echo $title->getEnName() ?></h4>
         <p class="public-date">公開日：<?php echo $title->getPublicDate() ?></p>
-<!-- 満足度は個別ページへ移動-->
-        <p>満足度：
-        <?php for($i=0;$i<=$title->getSatisfaction();$i++): ?>
-        <img src="img/OK.png" class="img">
-        <?php endfor?>
-        </p>
     </div>
     </a>
     <?php endforeach ?>

@@ -27,15 +27,18 @@ class Title{
     public function setSatisfaction($satisfaction){
         $this->satisfaction = $satisfaction;
     }
+    public static function findByName($titles, $name){
+        foreach($titles as $title){
+            if($title->name == $name){
+                return $title;
+            }
+        }
+
+    }
 
 
 
 
-
-
-//     public function watched(){
-//         echo $this->name .'を観ました！';
-//     }
 }
 
 
