@@ -1,17 +1,17 @@
-<?php 
-require_once('title.php');
-require_once('data.php');
-require_once('review.php');
-
-$titleName = $_GET['name'];
-
-$title = Title::findByName($titles, $titleName);
-?>
 <?php
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 ?>
 
+<?php 
+require_once('title.php');
+require_once('data.php');
+require_once('user.php');
+
+$titleName = $_GET['name'];
+$title = Title::findByName($titles, $titleName);
+$titleReviews = $title->getReviews($reviews);    
+?>
 
 <!DOCTYPE html>
 <html>
@@ -22,27 +22,36 @@ error_reporting(E_ALL);
 </head>
 <body>
   <div class="wrapper">
-    <h1 id="signboard"><?php echo $titleName ?></h1>
-    <!-- 詳細ページの中身 -->
-    <img src="http://placehold.it/1000x500" alt="" />
-    <div class="title-contents">
+    <h1 id="each-signboard"><?php echo $titleName ?></h1>
+
     <!-- 満足度-->
-    <p>満足度：
-    <?php for($i=0;$i<=$title->getSatisfaction();$i++): ?>
+    <p class="p-center">平均満足度：
+    <?php //for($i=0;$i<=$title->getSatisfaction();$i++): ?>
       <img src="img/OK.png" class="img">
-    <?php endfor?>
+    <?php //endfor?>
+    </p>   
     <br>
-    <?php var_dump($reviews);?>
-    <!-- 全てのレビュー -->
-    <?php foreach($reviews as $review): ?>
-    <h3><?php echo $review->getTitleName() ?></h3>
-    <p><?php echo $review->getBody() ?>
-    <?php endforeach ?>
-    
+
+    <!-- 詳細ページの中身 -->
+    <img src="http://placehold.it/1200x500" alt=""  class="img-show">
+    <div class="title-contents">
+    <!-- レビューコメント一覧 -->
+    <p class="p-center">皆さんのレビューコメント：</p>
+    <div class="review-box">
+        <?php foreach((array)$titleReviews as $review): ?>
+        <!--レビューコメント本文-->
+        <p><?php echo $review->getBody() ?> 
+        <!-- レビューの星の数 -->
+            <?php for($i=0;$i<=$review->getStar();$i++): ?>
+            <img src="img/OK.png" class="img">
+            <?php endfor ?>
+
+        <?php endforeach ?>
+    </div>
 
     </div>
 
-    <p><a href="index.php">← 作品一覧へ</a></p>
+    <p class="p-center footer"><a href="index.php">← 作品一覧へ</a></p>
 </div>
 </body>
 </html>
