@@ -5,12 +5,24 @@ error_reporting(E_ALL);
 
 <?php 
 require_once('title.php');
-require_once('data.php');
 require_once('user.php');
+require_once('user.php');
+require_once('data.php');
 
 $titleName = $_GET['name'];
 $title = Title::findByName($titles, $titleName);
-$titleReviews = $title->getReviews($reviews);    
+$titleReviews = $title->getReviews($reviews); 
+
+
+//星の数の平均値
+$staras_Data = array();
+foreach((array)$titleReviews as $review){
+    $starsData[] = $review->getStar();
+}
+print_r($starsData);
+$result = array_sum($starsData)/count($starsData);
+echo $result;
+
 ?>
 
 <!DOCTYPE html>
@@ -26,9 +38,9 @@ $titleReviews = $title->getReviews($reviews);
 
     <!-- 満足度-->
     <p class="p-center">平均満足度：
-    <?php //for($i=0;$i<=$title->getSatisfaction();$i++): ?>
+    <?php for($i=1;$i<=$result;$i++): ?>
       <img src="img/OK.png" class="img">
-    <?php //endfor?>
+    <?php endfor?>
     </p>   
     <br>
 
@@ -41,11 +53,11 @@ $titleReviews = $title->getReviews($reviews);
         <?php foreach((array)$titleReviews as $review): ?>
         <!--レビューコメント本文-->
         <p><?php echo $review->getBody() ?> 
-        <!-- レビューの星の数 -->
-            <?php for($i=0;$i<=$review->getStar();$i++): ?>
+            <!-- レビューの星の数 -->
+            <?php for($i=1;$i<=$review->getStar();$i++): ?>
             <img src="img/OK.png" class="img">
             <?php endfor ?>
-
+        </p>
         <?php endforeach ?>
     </div>
 
