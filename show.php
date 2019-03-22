@@ -6,22 +6,18 @@ error_reporting(E_ALL);
 <?php 
 require_once('title.php');
 require_once('user.php');
-require_once('user.php');
 require_once('data.php');
 
 $titleName = $_GET['name'];
 $title = Title::findByName($titles, $titleName);
 $titleReviews = $title->getReviews($reviews); 
 
-
 //星の数の平均値
 $staras_Data = array();
 foreach((array)$titleReviews as $review){
     $starsData[] = $review->getStar();
 }
-print_r($starsData);
 $result = array_sum($starsData)/count($starsData);
-echo $result;
 
 ?>
 
@@ -50,13 +46,18 @@ echo $result;
     <!-- レビューコメント一覧 -->
     <p class="p-center">皆さんのレビューコメント：</p>
     <div class="review-box">
-        <?php foreach((array)$titleReviews as $review): ?>
+        <?php foreach($titleReviews as $review): ?>
         <!--レビューコメント本文-->
         <p><?php echo $review->getBody() ?> 
             <!-- レビューの星の数 -->
             <?php for($i=1;$i<=$review->getStar();$i++): ?>
             <img src="img/OK.png" class="img">
             <?php endfor ?>
+        <!-- コメントしたユーザー -->
+        <?php $user = $review->getUser($users) ?>
+        by <?php //var_dump($users) ?>
+        <?php echo $user->getName() ?>
+
         </p>
         <?php endforeach ?>
     </div>

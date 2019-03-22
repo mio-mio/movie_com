@@ -20,15 +20,8 @@ class Title{
         return $this->publicDate;
     }
     
-    public static function findByName($titles, $name){
-        foreach($titles as $title){
-            if($title->name == $name){
-                return $title;
-            }
-        }
-    }
-
     public function getReviews($reviews){
+            $reviwsForTitle = array();
         foreach($reviews as $review){
             if($review->getTitleName() == $this->name){
                 $reviewsForTitle[] = $review;
@@ -38,6 +31,13 @@ class Title{
     }
 
 
+    public static function findByName($titles, $name){
+        foreach($titles as $title){
+            if($title->name == $name){
+                return $title;
+            }
+        }
+    }
 
 }
 
