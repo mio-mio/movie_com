@@ -6,8 +6,7 @@ class User{
     private $gender;
     private static $count = 0;
 
-    public function __construt($id, $name, $gender){
-        $this->id = $id;
+    public function __construct($name, $gender){
         $this->name = $name;
         $this->gender = $gender;
         self::$count++;
